@@ -1,9 +1,10 @@
 import { Summary } from "../../organisms";
+import * as Styles from "./Dashboard.styles";
 
 export function Dashboard() {
   return (
-    <div>
+    <Styles.Container>
       <Summary />
-    </div>
+    </Styles.Container>
   );
 }

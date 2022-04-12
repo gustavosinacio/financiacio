@@ -2,17 +2,19 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root{ 
-    --background: #121212;
+    --background: #222;
     --text-color: #eee;
     --dark-text-color: #333;
     
-    --primary-lighter: #59c88b;
-    --primary-light: #60ca8f;
-    --primary: #3cb371;
-    --primary-dark: #339760;
-    --primary-dark: #257047;
+    --primary-lighter: #A1A9FE;
+    --primary-light: #A16AE8;
+    --primary: #4120A9;
+    --accent: #F6D4D2;
+    --money-positive: #3cb371;
+    --money-negative: #F54D3D;
 
     --button-light: var(--dark-text-color);
+    --max-width: 1120px;
 
     --button-border-radius: 0.2rem;
   }
@@ -56,13 +58,14 @@ export const GlobalStyle = createGlobalStyle`
     text-transform: uppercase;
     padding: 0.5rem 1rem;
     background: var(--primary-light);
+
     border-radius: var(--button-border-radius);
     color: var(--button-light);
 
     transition: filter 0.2s;
 
     &:hover {
-      filter: brightness(0.9) 
+      filter: brightness(1.1) 
     }
   }
 

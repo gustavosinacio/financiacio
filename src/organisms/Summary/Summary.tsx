@@ -1,9 +1,13 @@
-import { Card } from "../../molecules/Card";
+import { BalanceCard } from "../../molecules/BalanceCard";
+import { SummaryCard } from "../../molecules/SummaryCard";
+import * as Styles from "./Summary.styles";
 
 export function Summary() {
   return (
-    <div>
-      <Card />
-    </div>
+    <Styles.Container>
+      <SummaryCard title="summary card 1" value={1000} />
+      <SummaryCard title="summary card 2" value={-500} />
+      <BalanceCard value={500} />
+    </Styles.Container>
   );
 }

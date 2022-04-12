@@ -6,15 +6,10 @@ export const Container = styled.div`
 `;
 
 export const CentralizedContent = styled.div`
-  max-width: 1120px;
+  max-width: var(--max-width);
   margin: 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  border-bottom: 1px dashed red;
-
-  button {
-  }
 `;
