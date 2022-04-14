@@ -2,16 +2,17 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root{ 
-    --background: #222;
-    --text-color: #eee;
-    --dark-text-color: #333;
+    --background: #eee;
+    --text-color: #333;
+    --white-text: #fff;
+    --dark-text-color: #222;
     
     --primary-lighter: #A1A9FE;
     --primary-light: #A16AE8;
     --primary: #4120A9;
     --accent: #F6D4D2;
     --money-positive: #3cb371;
-    --money-negative: #F54D3D;
+    --money-negative: #FF4D3D;
 
     --button-light: var(--dark-text-color);
     --max-width: 1120px;

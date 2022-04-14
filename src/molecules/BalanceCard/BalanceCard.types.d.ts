@@ -1,3 +1,0 @@
-type BalanceCardProps = {
-  value: number;
-};
