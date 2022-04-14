@@ -1,4 +1,4 @@
-import money from "../../assets/money.png";
+import money from "../../../assets/money.png";
 import * as Styles from "./Header.styles";
 
 export function Header() {

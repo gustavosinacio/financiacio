@@ -8,8 +8,8 @@ export function Home() {
       <Dashboard />
       <h1>Home</h1>
       <p>
-        This is my home layout. Here should be all the components to make my
-        home and the logic should be received from the outside.
+        This is my home layout. This should call a template and pass it the
+        logic to its components
       </p>
     </div>
   );
