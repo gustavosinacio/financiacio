@@ -2,10 +2,10 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div(
   ({ backgroundColor, textColor }: StyleCardProps) => css`
-    padding: 1.5rem 2rem;
+    padding: 1rem 1rem;
     border-radius: 0.25rem;
 
-    background: var(--background);
+    background: var(--card-background);
     color: var(--text-color);
 
     box-shadow: 0 0 10px 1px #ccc;

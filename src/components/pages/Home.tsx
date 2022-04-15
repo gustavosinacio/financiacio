@@ -1,16 +1,12 @@
 import { Header } from "../organisms";
 import { Dashboard } from "../templates";
+import * as Styles from "./Home.styles";
 
 export function Home() {
   return (
-    <div>
+    <Styles.Container>
       <Header />
       <Dashboard />
-      <h1>Home</h1>
-      <p>
-        This is my home layout. This should call a template and pass it the
-        logic to its components
-      </p>
-    </div>
+    </Styles.Container>
   );
 }

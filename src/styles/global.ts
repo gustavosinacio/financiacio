@@ -2,10 +2,11 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root{ 
-    --background: #eee;
+    --background: #f2f2f2;
+    --card-background: #fafafa;
     --text-color: #333;
     --white-text: #fff;
-    --dark-text-color: #222;
+    --dark-text: #222;
     
     --primary-lighter: #A1A9FE;
     --primary-light: #A16AE8;
@@ -14,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     --money-positive: #3cb371;
     --money-negative: #FF4D3D;
 
-    --button-light: var(--dark-text-color);
+    --button-light: var(--white-text);
     --max-width: 1120px;
 
     --button-border-radius: 0.2rem;
