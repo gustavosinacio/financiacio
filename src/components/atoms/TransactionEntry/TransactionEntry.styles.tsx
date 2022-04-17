@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.tr`
   td {
     text-align: left;
-    padding: 1rem 2rem;
+    padding: 1rem;
     background: var(--card-background);
 
     &.deposit {
@@ -17,7 +17,7 @@ export const Container = styled.tr`
     transition: all 0.3s;
 
     &:hover {
-      padding: 1.5rem 2rem;
+      padding: 1.5rem 1rem;
     }
   }
 `;

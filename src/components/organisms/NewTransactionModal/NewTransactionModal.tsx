@@ -41,7 +41,7 @@ export function NewTransactionModal({
       });
     } catch {
       setError("Erro ao adicionar dado");
-      console.error(9821, error);
+      console.error(error);
     } finally {
       onRequestClose();
     }

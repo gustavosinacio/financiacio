@@ -17,6 +17,7 @@ export function TransactionsLog() {
         (doc) => ({ id: doc.id, ...doc.data() } as Transaction)
       );
 
+      console.log(98210, ts.length);
       setTransactions(ts);
     });
   }, []);
@@ -34,9 +35,9 @@ export function TransactionsLog() {
         </thead>
 
         <tbody>
-          {transactions?.map(({ title, value, category, date }) => (
+          {transactions?.map(({ title, value, category, date, id }) => (
             <TransactionEntry
-              key={`${title}-${value}`}
+              key={id}
               title={title}
               value={value}
               category={category}

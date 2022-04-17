@@ -7,10 +7,3 @@ export type Transaction = {
   category: string;
   date: Timestamp;
 };
-export type NewTransaction = {
-  id?: string;
-  title: string;
-  value: number;
-  category: string;
-  date: Date;
-};

@@ -2,15 +2,18 @@ import { getAuth } from "firebase/auth";
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   getFirestore,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   Unsubscribe,
+  writeBatch,
 } from "firebase/firestore";
 
-import { NewTransaction, Transaction } from "../../types";
+import { Transaction } from "../../types";
 
 export function getFirebaseData() {
   const db = getFirestore();
@@ -62,4 +65,31 @@ export async function addTransaction(transaction: NewTransaction) {
   const { transactionCollection } = getFirebaseData();
 
   await addDoc(transactionCollection, { ...transaction });
+}
+
+export async function addMultipleTransactions(transactions: NewTransaction[]) {
+  const { db, user } = getFirebaseData();
+  const batch = writeBatch(db);
+
+  transactions.forEach((transaction) => {
+    console.log(9821, transaction);
+    if (transaction.value && transaction.title) {
+      batch.set(
+        doc(
+          db,
+          "users",
+          user?.uid || "",
+          "transactions",
+          transaction.id || Math.random().toString()
+        ),
+        transaction
+      );
+    }
+  });
+
+  try {
+    await batch.commit();
+  } catch (error) {
+    console.log(error);
+  }
 }
