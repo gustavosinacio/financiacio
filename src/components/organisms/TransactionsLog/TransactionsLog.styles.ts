@@ -17,21 +17,5 @@ export const Container = styled.div`
       text-align: left;
       line-height: 1.5rem;
     }
-
-    tbody {
-      td {
-        text-align: left;
-        padding: 1rem 2rem;
-        background: var(--card-background);
-
-        &.deposit {
-          color: var(--money-positive);
-        }
-
-        &.withdraw {
-          color: var(--money-negative);
-        }
-      }
-    }
   }
 `;

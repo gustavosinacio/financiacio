@@ -1,5 +1,5 @@
 import { Summary } from "../../organisms";
-import { TransactionsLog } from "../../organisms/TransactionsLog";
+import { TransactionsLog } from "../../organisms";
 import * as Styles from "./Dashboard.styles";
 
 export function Dashboard() {

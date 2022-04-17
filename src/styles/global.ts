@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     --modal-max-width: 600px;
     
     --button-border-radius: 0.2rem;
-    --modal-border-radius: 1rem;
+    --modal-border-radius: 0.25rem;
     --input-border-radius: 0.25rem;
   }
 

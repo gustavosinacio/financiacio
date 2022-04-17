@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { getFirebaseData } from "../../../services/firebase/transactions";
 import { Transaction } from "../../../types";
-import { TransactionEntry } from "../../atoms/TransactionEntry/TransactionEntry";
+import { TransactionEntry } from "../../atoms";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {

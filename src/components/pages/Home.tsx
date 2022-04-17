@@ -1,27 +1,44 @@
 import { useState } from "react";
 
 import { Header } from "../organisms";
-import { NewTransactionModal } from "../organisms/NewTransactionModal/NewTransactionModal";
+import { ImportTransactionsModal } from "../organisms";
+import { NewTransactionModal } from "../organisms";
 import { Dashboard } from "../templates";
 import * as Styles from "./Home.styles";
 
 export function Home() {
-  const [isModalOpen, setIsOpenModal] = useState(false);
+  const [openNewTransactionModal, setOpenNewTransactionModal] = useState(false);
+  const [openImportModal, setOpenImportModal] = useState(false);
 
   function handleOpenNewTransactionModal() {
-    setIsOpenModal(true);
+    setOpenNewTransactionModal(true);
   }
   function handleCloseNewTransactionModal() {
-    setIsOpenModal(false);
+    setOpenNewTransactionModal(false);
+  }
+
+  function handleOpenImportModal() {
+    setOpenImportModal(true);
+  }
+
+  function handleCloseImportModal() {
+    setOpenImportModal(false);
   }
 
   return (
     <Styles.Container>
-      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+      <Header
+        onOpenNewTransactionModal={handleOpenNewTransactionModal}
+        onOpenImportModal={handleOpenImportModal}
+      />
       <Dashboard />
       <NewTransactionModal
-        isOpen={isModalOpen}
+        isOpen={openNewTransactionModal}
         onRequestClose={handleCloseNewTransactionModal}
+      />
+      <ImportTransactionsModal
+        isOpen={openImportModal}
+        onRequestClose={handleCloseImportModal}
       />
     </Styles.Container>
   );

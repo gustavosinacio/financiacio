@@ -1,13 +1,11 @@
 import { FormEvent, useState } from "react";
-import Modal from "react-modal";
 
 import closeImg from "../../../assets/close.svg";
 import incomeImg from "../../../assets/income.svg";
 import outcomeImg from "../../../assets/outcome.svg";
 import { addTransaction } from "../../../services/firebase/transactions";
+import { Modal } from "../../molecules";
 import * as Styles from "./NewTransactionModal.styles";
-
-Modal.setAppElement("#root");
 
 export function NewTransactionModal({
   isOpen,
@@ -50,12 +48,7 @@ export function NewTransactionModal({
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-overlay"
-      className="react-modal-content"
-    >
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <Styles.Container onSubmit={handleAddNewTransaction}>
         <header>
           <h2>Nova transação</h2>

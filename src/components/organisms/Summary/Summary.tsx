@@ -1,7 +1,7 @@
 import incomeImg from "../../../assets/income.svg";
 import outcomeImg from "../../../assets/outcome.svg";
 import totalImg from "../../../assets/total.svg";
-import { SummaryCard } from "../../molecules/SummaryCard";
+import { SummaryCard } from "../../molecules";
 import * as Styles from "./Summary.styles";
 
 export function Summary() {
