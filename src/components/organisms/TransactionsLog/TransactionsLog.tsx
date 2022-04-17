@@ -1,7 +1,26 @@
+import { onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import { getFirebaseData } from "../../../services/firebase/transactions";
+import { Transaction } from "../../../types";
 import { TransactionEntry } from "../../atoms/TransactionEntry/TransactionEntry";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {
+  const [transactions, setTransactions] = useState<Transaction[]>();
+
+  useEffect(() => {
+    const { transactionQuery } = getFirebaseData();
+
+    return onSnapshot(transactionQuery, (snapshot) => {
+      const ts = snapshot.docs.map(
+        (doc) => ({ id: doc.id, ...doc.data() } as Transaction)
+      );
+
+      setTransactions(ts);
+    });
+  }, []);
+
   return (
     <Styles.Container>
       <table>
@@ -15,102 +34,15 @@ export function TransactionsLog() {
         </thead>
 
         <tbody>
-          <TransactionEntry
-            title="Aluguel"
-            value={-2200}
-            category="Casa"
-            date={new Date("2022-04-01")}
-          />
-          <TransactionEntry
-            title="Payday"
-            value={10.238}
-            category="Trabalho"
-            date={new Date("2022-04-01")}
-          />
-          <TransactionEntry
-            title="Parcela Fluence"
-            value={-1504}
-            category="Carro"
-            date={new Date("2022-04-09")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
-          <TransactionEntry
-            title="Amazon - Monitor 4k"
-            value={-2399}
-            category="Home Office"
-            date={new Date("2022-04-15")}
-          />
+          {transactions?.map(({ title, value, category, date }) => (
+            <TransactionEntry
+              key={`${title}-${value}`}
+              title={title}
+              value={value}
+              category={category}
+              date={date.toDate()}
+            />
+          ))}
         </tbody>
       </table>
     </Styles.Container>

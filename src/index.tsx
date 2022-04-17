@@ -1,6 +1,8 @@
-import { App } from "./App";
+import "./config/firebase";
 
 import { createRoot } from "react-dom/client";
+
+import { App } from "./App";
 import { GlobalStyle } from "./styles/global";
 const container = document.getElementById("root");
 
