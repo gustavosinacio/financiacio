@@ -1,15 +1,24 @@
 import incomeImg from "../../../assets/income.svg";
 import outcomeImg from "../../../assets/outcome.svg";
 import totalImg from "../../../assets/total.svg";
+import { useFirebaseTransaction } from "../../../hooks/useFirebaseTransactions";
 import { SummaryCard } from "../../molecules";
 import * as Styles from "./Summary.styles";
 
 export function Summary() {
+  const { transactionsTotal, depositsTotal, withdrawsTotal } =
+    useFirebaseTransaction();
+
   return (
     <Styles.Container>
-      <SummaryCard title="Entradas" value={10238} icon={incomeImg} />
-      <SummaryCard title="Saídas" value={-6103} icon={outcomeImg} />
-      <SummaryCard title="Total" value={4135} icon={totalImg} coloured />
+      <SummaryCard title="Receita" value={depositsTotal} icon={incomeImg} />
+      <SummaryCard title="Resgate" value={-withdrawsTotal} icon={outcomeImg} />
+      <SummaryCard
+        title="Balanço"
+        value={transactionsTotal}
+        icon={totalImg}
+        coloured
+      />
     </Styles.Container>
   );
 }

@@ -3,7 +3,7 @@ import { TransactionEntry } from "../../atoms";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {
-  const [transactions] = useFirebaseTransaction();
+  const { transactions } = useFirebaseTransaction();
 
   return (
     <Styles.Container>
