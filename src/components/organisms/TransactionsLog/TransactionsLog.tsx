@@ -1,26 +1,9 @@
-import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
-
-import { getFirebaseData } from "../../../services/firebase/transactions";
-import { Transaction } from "../../../types";
+import { useFirebaseTransaction } from "../../../hooks/useFirebaseTransactions";
 import { TransactionEntry } from "../../atoms";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {
-  const [transactions, setTransactions] = useState<Transaction[]>();
-
-  useEffect(() => {
-    const { transactionQuery } = getFirebaseData();
-
-    return onSnapshot(transactionQuery, (snapshot) => {
-      const ts = snapshot.docs.map(
-        (doc) => ({ id: doc.id, ...doc.data() } as Transaction)
-      );
-
-      console.log(98210, ts.length);
-      setTransactions(ts);
-    });
-  }, []);
+  const [transactions] = useFirebaseTransaction();
 
   return (
     <Styles.Container>
