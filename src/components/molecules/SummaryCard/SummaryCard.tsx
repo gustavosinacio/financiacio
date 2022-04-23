@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 
-import { formatValueTo2Decimals } from "../../../utils/functions";
 import { Card } from "../../atoms";
 
 export function SummaryCard({
@@ -23,7 +22,12 @@ export function SummaryCard({
         <p>{title}</p>
         <img src={icon} alt="income" />
       </header>
-      <strong>R$ {formatValueTo2Decimals(value)}</strong>
+      <strong>
+        {Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(value)}
+      </strong>
     </Card>
   );
 }

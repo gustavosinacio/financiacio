@@ -24,25 +24,13 @@ export function getFirebaseData() {
     currentUser?.uid || "",
     "transactions"
   );
-  const transactionQuery = query(
-    collection(db, "users", currentUser?.uid || "", "transactions"),
-    orderBy("date", "desc")
-  );
+  const transactionQuery = (order = "date") =>
+    query(
+      collection(db, "users", currentUser?.uid || "", "transactions"),
+      orderBy(order, "desc")
+    );
 
   return { db, user: currentUser, transactionCollection, transactionQuery };
-}
-
-export function connectTransactions(): [Transaction[], Unsubscribe] {
-  const { transactionQuery } = getFirebaseData();
-  let transactions: Transaction[] = [];
-
-  const unsubscribe = onSnapshot(transactionQuery, (snapshot) => {
-    transactions = snapshot.docs.map(
-      (doc) => ({ id: doc.id, ...doc.data() } as Transaction)
-    );
-  });
-
-  return [transactions, unsubscribe];
 }
 
 export async function getTransactions() {

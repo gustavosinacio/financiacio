@@ -5,7 +5,9 @@ import { getFirebaseData } from "../services/firebase/transactions";
 import { Transaction } from "../types";
 import { roundToTwo } from "../utils/functions";
 
-export function useFirebaseTransaction(): UseFirebaseTransaction {
+export function useFirebaseTransactions(
+  order?: string
+): UseFirebaseTransaction {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState<any>();
 
@@ -15,12 +17,13 @@ export function useFirebaseTransaction(): UseFirebaseTransaction {
 
   useEffect(() => {
     const { transactionQuery } = getFirebaseData();
-    let transactionsSum = 0;
-    let depositsSum = 0;
-    let withdrawsSum = 0;
 
     try {
-      const unsubscribe = onSnapshot(transactionQuery, (snapshot) => {
+      const unsubscribe = onSnapshot(transactionQuery(order), (snapshot) => {
+        let transactionsSum = 0;
+        let depositsSum = 0;
+        let withdrawsSum = 0;
+
         const ts = snapshot.docs.map((doc) => {
           const transaction = { id: doc.id, ...doc.data() } as Transaction;
           const { value } = transaction;
@@ -42,7 +45,7 @@ export function useFirebaseTransaction(): UseFirebaseTransaction {
     } catch (error) {
       setError(error);
     }
-  }, []);
+  }, [order]);
 
   return {
     transactions,

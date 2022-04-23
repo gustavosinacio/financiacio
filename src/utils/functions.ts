@@ -29,7 +29,3 @@ export function parseNubankStatementToTransactions(
 export function roundToTwo(number: number) {
   return Math.round(number * 100 + Number.EPSILON) / 100;
 }
-
-export function formatValueTo2Decimals(value: number) {
-  return value.toString().replace(".", ",");
-}

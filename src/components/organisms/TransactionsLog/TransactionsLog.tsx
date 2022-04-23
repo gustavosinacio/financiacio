@@ -1,17 +1,28 @@
-import { useFirebaseTransaction } from "../../../hooks/useFirebaseTransactions";
+import { useState } from "react";
+
+import { useFirebaseTransactions } from "../../../hooks/useFirebaseTransactions";
 import { TransactionEntry } from "../../atoms";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {
-  const { transactions } = useFirebaseTransaction();
+  const [logOrderBy, setLogOrderBy] = useState<string>("date");
+  const [logOrder, setLogOrder] = useState<string>("desc");
+
+  const { transactions } = useFirebaseTransactions(logOrderBy);
+
+  function handleTableHeadClick(value: string) {
+    setLogOrderBy(value);
+  }
 
   return (
     <Styles.Container>
       <table>
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Valor (R$)</th>
+            <th>
+              <div onClick={() => handleTableHeadClick("title")}>Título</div>
+            </th>
+            <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
           </tr>

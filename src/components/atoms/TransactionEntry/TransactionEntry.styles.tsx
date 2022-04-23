@@ -15,9 +15,5 @@ export const Container = styled.tr`
     }
 
     transition: all 0.3s;
-
-    &:hover {
-      padding: 1.5rem 1rem;
-    }
   }
 `;

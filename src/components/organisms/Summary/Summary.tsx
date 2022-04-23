@@ -1,13 +1,13 @@
 import incomeImg from "../../../assets/income.svg";
 import outcomeImg from "../../../assets/outcome.svg";
 import totalImg from "../../../assets/total.svg";
-import { useFirebaseTransaction } from "../../../hooks/useFirebaseTransactions";
+import { useFirebaseTransactions } from "../../../hooks/useFirebaseTransactions";
 import { SummaryCard } from "../../molecules";
 import * as Styles from "./Summary.styles";
 
 export function Summary() {
   const { transactionsTotal, depositsTotal, withdrawsTotal } =
-    useFirebaseTransaction();
+    useFirebaseTransactions();
 
   return (
     <Styles.Container>

@@ -13,6 +13,9 @@ export const GlobalStyle = createGlobalStyle`
     --primary-light: #A16AE8;
     --primary: #4120A9;
     --accent: #F6D4D2;
+    
+    --green: #4ffa7b;
+    
     --money-positive: #3cb371;
     --money-positive-background: #3cb37130;
     --money-negative: #FF4D3D;
