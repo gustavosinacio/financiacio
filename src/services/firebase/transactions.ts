@@ -5,11 +5,9 @@ import {
   doc,
   getDocs,
   getFirestore,
-  onSnapshot,
-  orderBy,
+  orderBy as firebaseOrderBy,
+  OrderByDirection,
   query,
-  setDoc,
-  Unsubscribe,
   writeBatch,
 } from "firebase/firestore";
 
@@ -24,10 +22,13 @@ export function getFirebaseData() {
     currentUser?.uid || "",
     "transactions"
   );
-  const transactionQuery = (order = "date") =>
+  const transactionQuery = (
+    orderBy = "date",
+    order: OrderByDirection = "desc"
+  ) =>
     query(
       collection(db, "users", currentUser?.uid || "", "transactions"),
-      orderBy(order, "desc")
+      firebaseOrderBy(orderBy, order)
     );
 
   return { db, user: currentUser, transactionCollection, transactionQuery };
@@ -60,7 +61,6 @@ export async function addMultipleTransactions(transactions: NewTransaction[]) {
   const batch = writeBatch(db);
 
   transactions.forEach((transaction) => {
-    console.log(9821, transaction);
     if (transaction.value && transaction.title) {
       batch.set(
         doc(

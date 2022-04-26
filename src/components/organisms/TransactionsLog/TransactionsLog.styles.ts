@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+import * as T from "./TransactionsLog.types";
 
 export const Container = styled.div`
   margin-top: 4rem;
@@ -19,3 +21,24 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const TableHead = styled.div`
+  display: flex;
+  align-items: center;
+  * + * {
+    margin-left: 0.5rem;
+  }
+`;
+
+export const OrderIcon = styled.div(
+  ({ order, orderBy, value }: T.OrderIconProps) => css`
+    ${order === "desc" &&
+    css`
+      rotate: 180deg;
+    `};
+    border-left: 0.4rem solid transparent;
+    border-right: 0.4rem solid transparent;
+    border-bottom: 0.7rem solid
+      ${orderBy === value ? "var(--gray-border-color)" : "transparent"};
+  `
+);

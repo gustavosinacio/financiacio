@@ -1,18 +1,34 @@
-import { useState } from "react";
+import { OrderByDirection } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 import { useFirebaseTransactions } from "../../../hooks/useFirebaseTransactions";
+import { TransactionEnum } from "../../../types/firebase.enum";
 import { TransactionEntry } from "../../atoms";
 import * as Styles from "./TransactionsLog.styles";
 
 export function TransactionsLog() {
-  const [logOrderBy, setLogOrderBy] = useState<string>("date");
-  const [logOrder, setLogOrder] = useState<string>("desc");
+  const [logOrderBy, setLogOrderBy] = useState<TransactionEnum>(
+    TransactionEnum.DATE
+  );
+  const [logOrder, setLogOrder] = useState<OrderByDirection>("desc");
 
-  const { transactions } = useFirebaseTransactions(logOrderBy);
+  const { transactions } = useFirebaseTransactions(logOrder, logOrderBy);
 
-  function handleTableHeadClick(value: string) {
-    setLogOrderBy(value);
+  function handleTableHeadClick(value: TransactionEnum) {
+    if (value !== logOrderBy) {
+      setLogOrderBy(value);
+    }
+    handleChangeLogOrder();
   }
+
+  function handleChangeLogOrder() {
+    console.log(9821, "orderChange");
+    setLogOrder((oldOrder) => (oldOrder === "desc" ? "asc" : "desc"));
+  }
+
+  useEffect(() => {
+    setLogOrder("asc");
+  }, [logOrderBy]);
 
   return (
     <Styles.Container>
@@ -20,11 +36,53 @@ export function TransactionsLog() {
         <thead>
           <tr>
             <th>
-              <div onClick={() => handleTableHeadClick("title")}>Título</div>
+              <Styles.TableHead
+                onClick={() => handleTableHeadClick(TransactionEnum.TITLE)}
+              >
+                <div>Título</div>
+                <Styles.OrderIcon
+                  order={logOrder}
+                  orderBy={logOrderBy}
+                  value={TransactionEnum.TITLE}
+                />
+              </Styles.TableHead>
             </th>
-            <th>Valor</th>
-            <th>Categoria</th>
-            <th>Data</th>
+            <th>
+              <Styles.TableHead
+                onClick={() => handleTableHeadClick(TransactionEnum.VALUE)}
+              >
+                <div>Valor</div>
+                <Styles.OrderIcon
+                  order={logOrder}
+                  orderBy={logOrderBy}
+                  value={TransactionEnum.VALUE}
+                />
+              </Styles.TableHead>
+            </th>
+            <th>
+              <Styles.TableHead
+                onClick={() => handleTableHeadClick(TransactionEnum.CATEGORY)}
+              >
+                <div>Categoria</div>
+                <Styles.OrderIcon
+                  order={logOrder}
+                  orderBy={logOrderBy}
+                  value={TransactionEnum.CATEGORY}
+                />
+              </Styles.TableHead>
+            </th>
+            <th>
+              <Styles.TableHead
+                onClick={() => handleTableHeadClick(TransactionEnum.DATE)}
+              >
+                <div>Data</div>
+                <Styles.OrderIcon
+                  order={logOrder}
+                  orderBy={logOrderBy}
+                  value={TransactionEnum.DATE}
+                />
+              </Styles.TableHead>
+            </th>
           </tr>
         </thead>
 

@@ -1,4 +1,4 @@
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, OrderByDirection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { getFirebaseData } from "../services/firebase/transactions";
@@ -6,7 +6,8 @@ import { Transaction } from "../types";
 import { roundToTwo } from "../utils/functions";
 
 export function useFirebaseTransactions(
-  order?: string
+  order?: OrderByDirection,
+  orderBy?: string
 ): UseFirebaseTransaction {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState<any>();
@@ -19,33 +20,36 @@ export function useFirebaseTransactions(
     const { transactionQuery } = getFirebaseData();
 
     try {
-      const unsubscribe = onSnapshot(transactionQuery(order), (snapshot) => {
-        let transactionsSum = 0;
-        let depositsSum = 0;
-        let withdrawsSum = 0;
+      const unsubscribe = onSnapshot(
+        transactionQuery(orderBy, order),
+        (snapshot) => {
+          let transactionsSum = 0;
+          let depositsSum = 0;
+          let withdrawsSum = 0;
 
-        const ts = snapshot.docs.map((doc) => {
-          const transaction = { id: doc.id, ...doc.data() } as Transaction;
-          const { value } = transaction;
+          const ts = snapshot.docs.map((doc) => {
+            const transaction = { id: doc.id, ...doc.data() } as Transaction;
+            const { value } = transaction;
 
-          transactionsSum += value;
-          if (value > 0) depositsSum += value;
-          else withdrawsSum += value;
-          return transaction;
-        });
+            transactionsSum += value;
+            if (value > 0) depositsSum += value;
+            else withdrawsSum += value;
+            return transaction;
+          });
 
-        console.log(98210, ts.length);
-        setTransactions(ts);
-        setTransactionsTotal(roundToTwo(transactionsSum));
-        setDepositsTotal(roundToTwo(depositsSum));
-        setWithdrawsTotal(roundToTwo(withdrawsSum));
-      });
+          console.log(98210, ts.length);
+          setTransactions(ts);
+          setTransactionsTotal(roundToTwo(transactionsSum));
+          setDepositsTotal(roundToTwo(depositsSum));
+          setWithdrawsTotal(roundToTwo(withdrawsSum));
+        }
+      );
 
       return unsubscribe;
     } catch (error) {
       setError(error);
     }
-  }, [order]);
+  }, [order, orderBy]);
 
   return {
     transactions,
