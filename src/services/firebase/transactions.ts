@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { Transaction } from "../../types";
+import { TransactionEnum } from "../../types/firebase.enum";
 
 export function getFirebaseData() {
   const db = getFirestore();
@@ -23,7 +24,7 @@ export function getFirebaseData() {
     "transactions"
   );
   const transactionQuery = (
-    orderBy = "date",
+    orderBy = TransactionEnum.DATE,
     order: OrderByDirection = "desc"
   ) =>
     query(

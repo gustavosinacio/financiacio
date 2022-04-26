@@ -12,7 +12,7 @@ export function TransactionsLog() {
   );
   const [logOrder, setLogOrder] = useState<OrderByDirection>("desc");
 
-  const { transactions } = useFirebaseTransactions(logOrder, logOrderBy);
+  const { transactions, error } = useFirebaseTransactions(logOrder, logOrderBy);
 
   function handleTableHeadClick(value: TransactionEnum) {
     if (value !== logOrderBy) {
@@ -30,74 +30,90 @@ export function TransactionsLog() {
     setLogOrder("asc");
   }, [logOrderBy]);
 
+  useEffect(() => {
+    console.error({ ...error });
+  }, [error]);
+
   return (
     <Styles.Container>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <Styles.TableHead
-                onClick={() => handleTableHeadClick(TransactionEnum.TITLE)}
-              >
-                <div>Título</div>
-                <Styles.OrderIcon
-                  order={logOrder}
-                  orderBy={logOrderBy}
-                  value={TransactionEnum.TITLE}
-                />
-              </Styles.TableHead>
-            </th>
-            <th>
-              <Styles.TableHead
-                onClick={() => handleTableHeadClick(TransactionEnum.VALUE)}
-              >
-                <div>Valor</div>
-                <Styles.OrderIcon
-                  order={logOrder}
-                  orderBy={logOrderBy}
-                  value={TransactionEnum.VALUE}
-                />
-              </Styles.TableHead>
-            </th>
-            <th>
-              <Styles.TableHead
-                onClick={() => handleTableHeadClick(TransactionEnum.CATEGORY)}
-              >
-                <div>Categoria</div>
-                <Styles.OrderIcon
-                  order={logOrder}
-                  orderBy={logOrderBy}
-                  value={TransactionEnum.CATEGORY}
-                />
-              </Styles.TableHead>
-            </th>
-            <th>
-              <Styles.TableHead
-                onClick={() => handleTableHeadClick(TransactionEnum.DATE)}
-              >
-                <div>Data</div>
-                <Styles.OrderIcon
-                  order={logOrder}
-                  orderBy={logOrderBy}
-                  value={TransactionEnum.DATE}
-                />
-              </Styles.TableHead>
-            </th>
-          </tr>
-        </thead>
+      {error && (
+        <Styles.ErrorMessage>
+          <h3>{error.name}</h3>
+          <p>
+            <strong>{error.code}: </strong>
+            {error.message}
+          </p>
+        </Styles.ErrorMessage>
+      )}
 
-        <tbody>
-          {transactions?.map(({ title, value, category, date, id }) => (
-            <TransactionEntry
-              key={id}
-              title={title}
-              value={value}
-              category={category}
-              date={date.toDate()}
-            />
-          ))}
-        </tbody>
-      </table>
+      {transactions.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <Styles.TableHead
+                  onClick={() => handleTableHeadClick(TransactionEnum.TITLE)}
+                >
+                  <div>Título</div>
+                  <Styles.OrderIcon
+                    order={logOrder}
+                    orderBy={logOrderBy}
+                    value={TransactionEnum.TITLE}
+                  />
+                </Styles.TableHead>
+              </th>
+              <th>
+                <Styles.TableHead
+                  onClick={() => handleTableHeadClick(TransactionEnum.VALUE)}
+                >
+                  <div>Valor</div>
+                  <Styles.OrderIcon
+                    order={logOrder}
+                    orderBy={logOrderBy}
+                    value={TransactionEnum.VALUE}
+                  />
+                </Styles.TableHead>
+              </th>
+              <th>
+                <Styles.TableHead
+                  onClick={() => handleTableHeadClick(TransactionEnum.CATEGORY)}
+                >
+                  <div>Categoria</div>
+                  <Styles.OrderIcon
+                    order={logOrder}
+                    orderBy={logOrderBy}
+                    value={TransactionEnum.CATEGORY}
+                  />
+                </Styles.TableHead>
+              </th>
+              <th>
+                <Styles.TableHead
+                  onClick={() => handleTableHeadClick(TransactionEnum.DATE)}
+                >
+                  <div>Data</div>
+                  <Styles.OrderIcon
+                    order={logOrder}
+                    orderBy={logOrderBy}
+                    value={TransactionEnum.DATE}
+                  />
+                </Styles.TableHead>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {transactions?.map(({ title, value, category, date, id }) => (
+              <TransactionEntry
+                key={id}
+                title={title}
+                value={value}
+                category={category}
+                date={date.toDate()}
+              />
+            ))}
+          </tbody>
+        </table>
+      )}
     </Styles.Container>
   );
 }

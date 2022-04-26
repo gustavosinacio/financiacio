@@ -22,6 +22,11 @@ export const Container = styled.div`
   }
 `;
 
+export const ErrorMessage = styled.div`
+  color: red;
+  margin: 1rem;
+`;
+
 export const TableHead = styled.div`
   display: flex;
   align-items: center;
@@ -34,7 +39,7 @@ export const OrderIcon = styled.div(
   ({ order, orderBy, value }: T.OrderIconProps) => css`
     ${order === "desc" &&
     css`
-      rotate: 180deg;
+      rotate: 1turn;
     `};
     border-left: 0.4rem solid transparent;
     border-right: 0.4rem solid transparent;
